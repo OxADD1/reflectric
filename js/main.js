@@ -179,9 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.screenshot-img').forEach(img => {
       const imgId = img.getAttribute('data-img-id');
       if (lang === 'en') {
-        img.src = `./img/screenshots/en/${imgId}.png`;
+        img.src = `./img/Englisch/${imgId}.jpg`;
       } else {
-        img.src = `./img/screenshots/de/${imgId}.png`;
+        img.src = `./img/Deutsch/${imgId}.jpg`;
       }
     });
 
