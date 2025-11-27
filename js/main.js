@@ -287,4 +287,116 @@ document.addEventListener('DOMContentLoaded', function() {
 
     lastScroll = currentScroll;
   });
+
+  // Lightbox functionality
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.querySelector('.lightbox-close');
+  const lightboxPrev = document.querySelector('.lightbox-prev');
+  const lightboxNext = document.querySelector('.lightbox-next');
+  const lightboxCounter = document.querySelector('.lightbox-counter');
+  const screenshots = document.querySelectorAll('.screenshot-img');
+
+  let currentImageIndex = 0;
+  let imagesList = [];
+
+  // Build image list from screenshots
+  function buildImageList() {
+    imagesList = Array.from(screenshots).map(img => ({
+      src: img.src,
+      alt: img.alt,
+      id: img.getAttribute('data-img-id')
+    }));
+  }
+
+  // Open lightbox
+  function openLightbox(index) {
+    currentImageIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  }
+
+  // Close lightbox
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Re-enable scrolling
+  }
+
+  // Update lightbox image
+  function updateLightboxImage() {
+    const currentImage = imagesList[currentImageIndex];
+    lightboxImg.src = currentImage.src;
+    lightboxImg.alt = currentImage.alt;
+    lightboxCounter.textContent = `${currentImageIndex + 1} / ${imagesList.length}`;
+  }
+
+  // Show next image
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % imagesList.length;
+    updateLightboxImage();
+  }
+
+  // Show previous image
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + imagesList.length) % imagesList.length;
+    updateLightboxImage();
+  }
+
+  // Event listeners for screenshots
+  screenshots.forEach((screenshot, index) => {
+    screenshot.addEventListener('click', () => {
+      buildImageList(); // Rebuild in case language changed
+      openLightbox(index);
+    });
+  });
+
+  // Event listeners for lightbox controls
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', showPrevImage);
+  lightboxNext.addEventListener('click', showNextImage);
+
+  // Click outside image to close
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+      showNextImage();
+    } else if (e.key === 'ArrowLeft') {
+      showPrevImage();
+    }
+  });
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  lightbox.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  lightbox.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (touchEndX < touchStartX - 50) {
+      // Swipe left - next image
+      showNextImage();
+    }
+    if (touchEndX > touchStartX + 50) {
+      // Swipe right - previous image
+      showPrevImage();
+    }
+  }
 });
