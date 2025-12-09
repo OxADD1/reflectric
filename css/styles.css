@@ -1,5 +1,8 @@
 :root {
-  --primary: #fed136;
+  --primary: #e87c0f;
+  --primary-hover: #ba630c;
+  --bs-primary: #e87c0f;
+  --bs-primary-rgb: 232, 124, 15;
   --dark-gray: #343a40;
   --light-gray: #f7f7f7;
 }
@@ -32,13 +35,13 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #e9c025;
-  border-color: #e9c025;
+  background-color: #ba630c;
+  border-color: #ba630c;
   color: #212529;
 }
 
 .text-primary {
-  color: var(--primary) !important;
+  color: #e87c0f !important;
 }
 
 .bg-light-gray {
@@ -122,7 +125,7 @@ body {
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Screenshots Section */
@@ -133,7 +136,7 @@ body {
 
 .app-screenshot {
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   max-width: 100%;
   height: auto;
   transition: transform 0.3s;
@@ -160,7 +163,7 @@ body {
 
 .journey-card:hover {
   transform: translateX(10px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .journey-card h4 {
@@ -337,7 +340,8 @@ footer a:hover {
   transition: all 0.3s;
 }
 
-.language-btn:hover, .language-btn.active {
+.language-btn:hover,
+.language-btn.active {
   color: var(--primary);
 }
 
@@ -452,7 +456,7 @@ footer a:hover {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(254, 209, 54, 0.8);
+  background-color: rgba(232, 124, 15, 0.8);
   color: #212529;
   border: none;
   font-size: 30px;
@@ -486,8 +490,13 @@ footer a:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes zoomIn {
@@ -495,6 +504,7 @@ footer a:hover {
     transform: scale(0.8);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;

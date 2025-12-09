@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Language dictionaries
   const languages = {
     'de': {
@@ -151,8 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // Set the language on page load (default to German)
-  let currentLang = 'de';
+  // Set the language on page load (default to English)
+  let currentLang = 'en';
 
   // Function to update content based on selected language
   function updateContent(lang) {
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add event listeners to language buttons
   document.querySelectorAll('.language-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
       e.preventDefault();
       const lang = this.getAttribute('data-lang');
       updateContent(lang);
@@ -214,12 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Initialize with German
-  updateContent('de');
+  // Initialize with English
+  updateContent('en');
 
   // Add click handler to close mobile navbar when any nav link is clicked
   document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       const navbarCollapse = document.querySelector('.navbar-collapse');
       if (navbarCollapse && navbarCollapse.classList.contains('show')) {
         const bsCollapse = new bootstrap.Collapse(navbarCollapse);
