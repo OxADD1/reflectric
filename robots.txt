@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oxadd1.github.io/reflectric/sitemap.xml

@@ -73,7 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {
       'footer.copyright': '© 2025 Adrian Eberhardt',
       'footer.imprint': 'Impressum',
       'footer.privacy': 'Datenschutz',
-      'footer.app-privacy': 'Datenschutz Reflectric'
+      'footer.app-privacy': 'Datenschutz Reflectric',
+      // SEO
+      'meta.description': 'Reflectric - Dein täglicher Begleiter für Achtsamkeit und persönliches Wachstum. Tägliche Reflexionen, Mood Tracking und Selbstreflexion.',
+      'meta.keywords': 'Reflectric, Achtsamkeit App, Reflexion App, Selbstreflexion, Mood Tracker, Tagebuch App, iOS App, Persönlichkeitsentwicklung, Journaling, Mindfulness'
     },
     'en': {
       'nav.home': 'Home',
@@ -147,7 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
       'footer.copyright': '© 2025 Adrian Eberhardt',
       'footer.imprint': 'Imprint',
       'footer.privacy': 'Privacy Policy',
-      'footer.app-privacy': 'Reflectric Privacy Policy'
+      'footer.app-privacy': 'Reflectric Privacy Policy',
+      // SEO
+      'meta.description': 'Reflectric - Your daily companion for mindfulness and personal growth. Daily reflections, mood tracking, and self-reflection.',
+      'meta.keywords': 'Reflectric, Mindfulness App, Reflection App, Self-Reflection, Mood Tracker, Journaling App, iOS App, Personal Growth, Mindfulness'
     }
   };
 
@@ -196,6 +202,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update current language
     currentLang = lang;
+
+    // Update Meta Tags and JSON-LD
+    updateSeo(lang);
+  }
+
+  function updateSeo(lang) {
+    const data = languages[lang];
+    if (!data) return;
+
+    // Meta Description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && data['meta.description']) metaDesc.content = data['meta.description'];
+
+    // OG Description
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc && data['meta.description']) ogDesc.content = data['meta.description'];
+
+    // Twitter Description
+    const twDesc = document.querySelector('meta[property="twitter:description"]');
+    if (twDesc && data['meta.description']) twDesc.content = data['meta.description'];
+
+    // Keywords
+    const keywords = document.querySelector('meta[name="keywords"]');
+    if (keywords && data['meta.keywords']) keywords.content = data['meta.keywords'];
+
+    // JSON-LD
+    const jsonLd = document.querySelector('script[type="application/ld+json"]');
+    if (jsonLd && data['meta.description']) {
+      try {
+        const json = JSON.parse(jsonLd.textContent);
+        json.description = data['meta.description'];
+        jsonLd.textContent = JSON.stringify(json, null, 2);
+      } catch (e) {
+        console.error('Error updating JSON-LD:', e);
+      }
+    }
   }
 
   // Add event listeners to language buttons
